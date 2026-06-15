@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>成功日記</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
+
+  :root {
+    --bg: #f5f2ed;
+    --surface: #ffffff;
+    --surface2: #edeae3;
+    --border: #e4e0d8;
+    --accent: #c0392b;
+    --accent-dim: #a03020;
+    --green: #2c4a38;
+    --yellow: #e8c84a;
+    --yellow-bg: #fdf6d8;
+    --yellow-text: #7a6010;
+    --text: #2c4a38;
+    --text-body: #3a3a36;
+    --text-muted: #8a8680;
+    --text-dim: #b0aba4;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--text-body);
+    min-height: 100vh;
+  }
+
+  .header {
+    padding: 24px 20px 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .header-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; font-weight: 700; }
+  .header h1 { font-size: 24px; font-weight: 900; color: var(--green); letter-spacing: -0.02em; }
+
+  .tabs {
+    display: flex;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .tab {
+    flex: 1;
+    padding: 13px 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dim);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg); }
+
+  .page { display: none; }
+  .page.active { display: flex; flex-direction: column; }
+
+  /* WRITE */
+  .write-page { min-height: calc(100vh - 100px); padding: 20px; padding-bottom: 90px; }
+  .write-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .write-textarea {
+    width: 100%;
+    min-height: 180px;
+    padding: 16px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-family: inherit;
+    color: var(--text-body);
+    resize: none;
+    overflow: hidden;
+    line-height: 1.7;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .write-textarea:focus { border-color: var(--green); }
+  .write-textarea::placeholder { color: var(--text-dim); }
+  .char-count { text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+
+  .sticky-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 14px 20px;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    z-index: 20;
+  }
+  .next-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 16px;
+    font-weight: 900;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .next-btn:active { transform: scale(0.97); background: var(--accent-dim); }
+  .next-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* CATEGORY */
+  .cat-page { padding: 20px; padding-bottom: 100px; }
+  .cat-page-title { font-size: 18px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+  .cat-page-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .cat-chip {
+    padding: 12px 10px;
+    border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    line-height: 1.4;
+  }
+  .cat-chip.selected { border-color: var(--green); color: var(--green); background: rgba(44,74,56,0.07); }
+  .add-cat-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .add-cat-input {
+    flex: 1;
+    padding: 11px 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-body);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .add-cat-input:focus { border-color: var(--green); }
+  .add-cat-input::placeholder { color: var(--text-dim); }
+  .add-cat-btn {
+    padding: 11px 16px;
+    background: var(--green);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .form-section { margin-bottom: 18px; }
+  .form-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .form-input {
+    width: 100%;
+    padding: 13px 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--text-body);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-input:focus { border-color: var(--green); }
+
+  /* HISTORY */
+  .history-page { padding: 20px; padding-bottom: 80px; }
+  .search-input {
+    width: 100%;
+    padding: 11px 14px;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--text-body);
+    outline: none;
+    margin-bottom: 14px;
+    transition: border-color 0.15s;
+  }
+  .search-input:focus { border-color: var(--green); }
+  .search-input::placeholder { color: var(--text-dim); }
+  .cat-filter-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
+  .cat-filter-btn {
+    padding: 6px 12px;
+    border-radius: 99px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .cat-filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(192,57,43,0.06); }
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+  .entry-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .entry-date { font-size: 12px; color: var(--text-muted); font-weight: 700; }
+  .entry-mood { font-size: 12px; color: var(--yellow-text); background: var(--yellow-bg); padding: 3px 10px; border-radius: 99px; font-weight: 700; }
+  .entry-content { font-size: 14px; color: var(--text-body); line-height: 1.7; margin-bottom: 10px; }
+  .entry-cats { display: flex; gap: 6px; flex-wrap: wrap; }
+  .entry-cat { font-size: 11px; font-weight: 700; color: var(--green); background: rgba(44,74,56,0.07); border: 1px solid rgba(44,74,56,0.15); padding: 3px 10px; border-radius: 99px; }
+
+  /* STATS */
+  .stats-page { padding: 20px; padding-bottom: 80px; }
+  .stats-title { font-size: 18px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+  .stats-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .stat-item { margin-bottom: 18px; }
+  .stat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .stat-name { font-size: 14px; font-weight: 700; color: var(--text-body); }
+  .stat-pct { font-size: 13px; font-weight: 900; color: var(--accent); }
+  .stat-count { font-size: 11px; color: var(--text-dim); }
+  .stat-bar-bg { height: 8px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.8s ease; }
+  .stat-bar-fill.top { background: var(--green); }
+
+  /* CELEBRATION OVERLAY */
+  .celebrate-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44,74,56,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .celebrate-overlay.show { opacity: 1; pointer-events: auto; }
+  .celebrate-box {
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 36px 32px;
+    text-align: center;
+    max-width: 300px;
+    width: 85%;
+    transform: scale(0.85);
+    transition: transform 0.3s;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .celebrate-overlay.show .celebrate-box { transform: scale(1); }
+  .celebrate-emoji { font-size: 48px; margin-bottom: 16px; }
+  .celebrate-msg { font-size: 20px; font-weight: 900; color: var(--green); line-height: 1.4; margin-bottom: 8px; }
+  .celebrate-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .celebrate-progress { height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .celebrate-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 100%; transition: width 2.5s linear; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 90px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green);
+    color: #fff;
+    padding: 11px 20px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 700;
+    opacity: 0;
+    transition: all 0.25s;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  .loading { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
+  .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .empty { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">我的成長軌跡</div>
+  <h1>成功日記</h1>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('write')">✏️ 記錄</div>
+  <div class="tab" onclick="switchTab('history')">📖 歷程</div>
+  <div class="tab" onclick="switchTab('stats')">📊 統計</div>
+</div>
+
+<!-- WRITE PAGE -->
+<div id="page-write" class="page active">
+  <div class="write-page">
+    <div class="write-label">今天，我做到了⋯⋯</div>
+    <textarea class="write-textarea" id="writeContent" placeholder="寫下今天讓自己感到驕傲的事，不論大小都算⋯⋯" oninput="autoGrow(this); updateCount()"></textarea>
+    <div class="char-count"><span id="charCount">0</span> 字</div>
+  </div>
+  <div class="sticky-bar">
+    <button class="next-btn" id="nextBtn" onclick="goToCat()" disabled>下一步：選擇分類 →</button>
+  </div>
+</div>
+
+<!-- CATEGORY PAGE -->
+<div id="page-cat" class="page">
+  <div class="cat-page">
+    <div class="cat-page-title">這份成功屬於⋯⋯</div>
+    <div class="cat-page-sub">可以複選，選完填上日期和心情送出</div>
+    <div class="cat-grid" id="catGrid">
+      <div class="loading"><div class="spinner"></div></div>
+    </div>
+    <div class="add-cat-row">
+      <input class="add-cat-input" id="newCatInput" placeholder="新增分類⋯⋯">
+      <button class="add-cat-btn" onclick="addNewCat()">＋ 新增</button>
+    </div>
+    <div class="form-section">
+      <label class="form-label">日期</label>
+      <input class="form-input" type="date" id="entryDate">
+    </div>
+    <div class="form-section">
+      <label class="form-label">今天的心情</label>
+      <input class="form-input" id="entryMood" placeholder="例：開心、平靜、有點累但滿足⋯⋯">
+    </div>
+  </div>
+  <div class="sticky-bar">
+    <button class="next-btn" onclick="submitEntry()">✓ 儲存這筆紀錄</button>
+  </div>
+</div>
+
+<!-- HISTORY PAGE -->
+<div id="page-history" class="page">
+  <div class="history-page">
+    <input class="search-input" id="searchInput" placeholder="搜尋紀錄內容⋯⋯" oninput="renderHistory()">
+    <div class="cat-filter-row" id="histFilterRow">
+      <button class="cat-filter-btn active" data-cat="全部" onclick="selectHistFilter(this)">全部</button>
+    </div>
+    <div class="entry-list" id="entryList">
+      <div class="loading"><div class="spinner"></div>載入中⋯</div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS PAGE -->
+<div id="page-stats" class="page">
+  <div class="stats-page">
+    <div class="stats-title">我的成長比重</div>
+    <div class="stats-sub">各分類在所有紀錄中出現的比例</div>
+    <div id="statsList">
+      <div class="loading"><div class="spinner"></div>計算中⋯</div>
+    </div>
+  </div>
+</div>
+
+<!-- CELEBRATION OVERLAY -->
+<div class="celebrate-overlay" id="celebrateOverlay">
+  <div class="celebrate-box">
+    <div class="celebrate-emoji">🎉</div>
+    <div class="celebrate-msg" id="celebrateMsg"></div>
+    <div class="celebrate-sub">繼續累積你的成功經驗</div>
+    <div class="celebrate-progress">
+      <div class="celebrate-progress-fill" id="celebrateBar"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbwJ1oBfLXcH3kS9UCsMXkgRbC1hw6Lk-XzIRbonzTwKHe6AEeV8_f0MVKBVA83NtmCh8A/exec";
+
+let entries = [];
+let categories = [];
+let selectedCats = new Set();
+let histFilter = "全部";
+
+window.onload = () => {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,'0');
+  const dd = String(today.getDate()).padStart(2,'0');
+  document.getElementById("entryDate").value = `${yyyy}-${mm}-${dd}`;
+  fetchAll();
+};
+
+async function fetchAll() {
+  await Promise.all([fetchEntries(), fetchCategories()]);
+}
+
+async function fetchEntries() {
+  try {
+    const res = await fetch(`${API}?action=getAll`);
+    const data = await res.json();
+    entries = data.rows || [];
+    renderHistory();
+    renderStats();
+    renderHistFilters();
+  } catch(e) { showToast("載入失敗，請重試"); }
+}
+
+async function fetchCategories() {
+  try {
+    const res = await fetch(`${API}?action=getCategories`);
+    const data = await res.json();
+    categories = data.categories || [];
+    renderCatGrid();
+  } catch(e) { showToast("分類載入失敗"); }
+}
+
+// ── Write ──
+function autoGrow(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function updateCount() {
+  const val = document.getElementById("writeContent").value;
+  document.getElementById("charCount").textContent = val.length;
+  document.getElementById("nextBtn").disabled = val.trim().length === 0;
+}
+
+function goToCat() { switchTab('cat'); }
+
+// ── Categories ──
+function renderCatGrid() {
+  const grid = document.getElementById("catGrid");
+  grid.innerHTML = categories.map(cat => `
+    <button class="cat-chip ${selectedCats.has(cat)?'selected':''}" onclick="toggleCat(this)">${cat}</button>
+  `).join("");
+}
+
+function toggleCat(btn) {
+  const cat = btn.textContent;
+  if (selectedCats.has(cat)) { selectedCats.delete(cat); btn.classList.remove("selected"); }
+  else { selectedCats.add(cat); btn.classList.add("selected"); }
+}
+
+async function addNewCat() {
+  const val = document.getElementById("newCatInput").value.trim();
+  if (!val) return;
+  try {
+    await fetch(API, { method: "POST", body: JSON.stringify({ action: "addCategory", category: val }) });
+    categories.push(val);
+    document.getElementById("newCatInput").value = "";
+    renderCatGrid();
+    showToast(`「${val}」已新增`);
+  } catch(e) { showToast("新增失敗"); }
+}
+
+async function submitEntry() {
+  const content = document.getElementById("writeContent").value.trim();
+  const date = document.getElementById("entryDate").value;
+  const mood = document.getElementById("entryMood").value.trim();
+  if (!content) { showToast("請先寫下今天的成功"); return; }
+  if (selectedCats.size === 0) { showToast("請至少選一個分類"); return; }
+  if (!date) { showToast("請選擇日期"); return; }
+
+  const btn = document.querySelector("#page-cat .next-btn");
+  btn.disabled = true;
+  btn.textContent = "儲存中⋯";
+
+  try {
+    await fetch(API, {
+      method: "POST",
+      body: JSON.stringify({ action: "add", content, date, mood, categories: [...selectedCats] })
+    });
+
+    // Reset form
+    document.getElementById("writeContent").value = "";
+    document.getElementById("writeContent").style.height = "auto";
+    document.getElementById("charCount").textContent = "0";
+    document.getElementById("nextBtn").disabled = true;
+    document.getElementById("entryMood").value = "";
+    selectedCats.clear();
+    renderCatGrid();
+
+    // Fetch updated entries then show celebration
+    await fetchEntries();
+
+    // Count today's entries
+    const todayStr = date;
+    const todayCount = entries.filter(e => {
+      const d = (e.date || "").toString();
+      const normalized = d.replace(/\//g, "-");
+      return normalized === todayStr || d === todayStr;
+    }).length;
+
+    showCelebration(todayCount);
+    switchTab('history');
+
+  } catch(e) {
+    showToast("儲存失敗，請重試");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "✓ 儲存這筆紀錄";
+  }
+}
+
+// ── Celebration ──
+function showCelebration(count) {
+  const overlay = document.getElementById("celebrateOverlay");
+  const msg = document.getElementById("celebrateMsg");
+  const bar = document.getElementById("celebrateBar");
+
+  msg.textContent = `你今天完成 ${count} 項紀錄，真棒！`;
+
+  // Reset bar
+  bar.style.transition = "none";
+  bar.style.width = "100%";
+
+  overlay.classList.add("show");
+
+  // Start countdown bar
+  setTimeout(() => {
+    bar.style.transition = "width 2.8s linear";
+    bar.style.width = "0%";
+  }, 50);
+
+  // Auto dismiss after 3s
+  setTimeout(() => {
+    overlay.classList.remove("show");
+  }, 3000);
+}
+
+// ── History ──
+function renderHistFilters() {
+  const row = document.getElementById("histFilterRow");
+  row.innerHTML = `<button class="cat-filter-btn ${histFilter==='全部'?'active':''}" data-cat="全部" onclick="selectHistFilter(this)">全部</button>`;
+  categories.forEach(cat => {
+    const btn = document.createElement("button");
+    btn.className = `cat-filter-btn ${histFilter===cat?'active':''}`;
+    btn.dataset.cat = cat;
+    btn.textContent = cat;
+    btn.onclick = () => selectHistFilter(btn);
+    row.appendChild(btn);
+  });
+}
+
+function selectHistFilter(btn) {
+  histFilter = btn.dataset.cat;
+  document.querySelectorAll(".cat-filter-btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  renderHistory();
+}
+
+function renderHistory() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  let filtered = [...entries].reverse();
+  if (histFilter !== "全部") filtered = filtered.filter(e => e.categories.includes(histFilter));
+  if (q) filtered = filtered.filter(e => e.content.toLowerCase().includes(q) || (e.mood||"").toLowerCase().includes(q));
+
+  const list = document.getElementById("entryList");
+  if (!filtered.length) { list.innerHTML = `<div class="empty">還沒有符合的紀錄</div>`; return; }
+
+  list.innerHTML = filtered.map(e => `
+    <div class="entry-card">
+      <div class="entry-meta">
+        <div class="entry-date">${formatDate(e.date)}</div>
+        ${e.mood ? `<div class="entry-mood">${e.mood}</div>` : ''}
+      </div>
+      <div class="entry-content">${e.content}</div>
+      <div class="entry-cats">${(e.categories||[]).map(c => `<span class="entry-cat">${c}</span>`).join("")}</div>
+    </div>
+  `).join("");
+}
+
+function formatDate(d) {
+  if (!d) return "";
+  const s = d.toString();
+  if (s.includes("/")) return s;
+  if (s.includes("-")) { const [y,m,dd] = s.split("-"); return `${y}/${m}/${dd}`; }
+  return s;
+}
+
+// ── Stats ──
+function renderStats() {
+  const list = document.getElementById("statsList");
+  if (!entries.length) { list.innerHTML = `<div class="empty">還沒有任何紀錄</div>`; return; }
+  const counts = {};
+  entries.forEach(e => { (e.categories||[]).forEach(c => { counts[c] = (counts[c]||0)+1; }); });
+  const total = Object.values(counts).reduce((a,b)=>a+b,0);
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  list.innerHTML = sorted.map(([cat, count], i) => {
+    const pct = Math.round(count/total*100);
+    return `
+      <div class="stat-item">
+        <div class="stat-header">
+          <span class="stat-name">${cat}</span>
+          <span><span class="stat-pct">${pct}%</span><span class="stat-count"> · ${count} 筆</span></span>
+        </div>
+        <div class="stat-bar-bg">
+          <div class="stat-bar-fill ${i===0?'top':''}" style="width:${pct}%"></div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+// ── Tab Switch ──
+function switchTab(name) {
+  const visibleTabs = ['write','history','stats'];
+  document.querySelectorAll(".tab").forEach((t, i) => {
+    t.classList.toggle("active", visibleTabs[i] === name || (name==='cat' && visibleTabs[i]==='write'));
+  });
+  ['write','cat','history','stats'].forEach(t => {
+    const p = document.getElementById(`page-${t}`);
+    if (p) p.classList.toggle("active", t===name);
+  });
+  if (name==='history') renderHistory();
+  if (name==='stats') renderStats();
+}
+
+// ── Toast ──
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(() => t.classList.remove("show"), 2500);
+}
+</script>
+</body>
+</html>
