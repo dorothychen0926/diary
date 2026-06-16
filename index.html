@@ -8,22 +8,22 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
 
   :root {
-    --bg: #f5f2ed;
+    --bg: #f2f4f3;
     --surface: #ffffff;
-    --surface2: #edeae3;
-    --border: #e4e0d8;
-    --accent: #c0392b;
-    --accent-dim: #a03020;
-    --green: #2c4a38;
-    --yellow: #e8c84a;
-    --yellow-bg: #fdf6d8;
-    --yellow-text: #7a6010;
-    --text: #2c4a38;
-    --text-body: #3a3a36;
-    --text-muted: #8a8680;
-    --text-dim: #b0aba4;
+    --surface2: #e6eae8;
+    --border: #d8dedd;
+    --accent: #2d7a50;
+    --accent-dim: #1f5c3a;
+    --accent-light: rgba(45,122,80,0.08);
+    --silver: #8a9e96;
+    --silver-light: #b8c8c2;
+    --text: #1a2e24;
+    --text-body: #2e3e38;
+    --text-muted: #6a8278;
+    --text-dim: #a8bab4;
+    --danger: #b04040;
     --radius: 14px;
-    --radius-sm: 8px;
+    --radius-sm: 9px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,18 +35,32 @@
     min-height: 100vh;
   }
 
+  /* Header */
   .header {
-    padding: 24px 20px 14px;
+    padding: 26px 20px 14px;
     text-align: center;
     border-bottom: 1px solid var(--border);
-    background: var(--bg);
+    background: var(--surface);
   }
-  .header-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; font-weight: 700; }
-  .header h1 { font-size: 24px; font-weight: 900; color: var(--green); letter-spacing: -0.02em; }
+  .header-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
 
+  /* Tabs */
   .tabs {
     display: flex;
-    background: var(--surface2);
+    background: var(--surface);
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
@@ -62,18 +76,33 @@
     cursor: pointer;
     border-bottom: 2px solid transparent;
     transition: all 0.2s;
+    letter-spacing: 0.02em;
   }
-  .tab.active { color: var(--accent); border-bottom-color: var(--accent); background: var(--bg); }
+  .tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
 
+  /* Pages */
   .page { display: none; }
   .page.active { display: flex; flex-direction: column; }
 
-  /* WRITE */
-  .write-page { min-height: calc(100vh - 100px); padding: 20px; padding-bottom: 90px; }
-  .write-label { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  /* ── WRITE ── */
+  .write-page {
+    min-height: calc(100vh - 100px);
+    padding: 24px 20px 100px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 10px;
+  }
   .write-textarea {
     width: 100%;
-    min-height: 180px;
+    min-height: 190px;
     padding: 16px;
     background: var(--surface);
     border: 1.5px solid var(--border);
@@ -83,45 +112,51 @@
     color: var(--text-body);
     resize: none;
     overflow: hidden;
-    line-height: 1.7;
+    line-height: 1.75;
     outline: none;
-    transition: border-color 0.15s;
+    transition: border-color 0.15s, box-shadow 0.15s;
   }
-  .write-textarea:focus { border-color: var(--green); }
+  .write-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,122,80,0.1);
+  }
   .write-textarea::placeholder { color: var(--text-dim); }
   .char-count { text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
 
+  /* Sticky bar */
   .sticky-bar {
     position: fixed;
     bottom: 0; left: 0; right: 0;
     padding: 14px 20px;
-    background: var(--bg);
+    background: var(--surface);
     border-top: 1px solid var(--border);
     z-index: 20;
   }
   .next-btn {
     width: 100%;
-    padding: 16px;
+    padding: 15px;
     background: var(--accent);
     color: #fff;
     border: none;
     border-radius: var(--radius);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 900;
     font-family: inherit;
     cursor: pointer;
+    letter-spacing: 0.02em;
     transition: all 0.15s;
   }
   .next-btn:active { transform: scale(0.97); background: var(--accent-dim); }
-  .next-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .next-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-  /* CATEGORY */
+  /* ── CATEGORY ── */
   .cat-page { padding: 20px; padding-bottom: 100px; }
-  .cat-page-title { font-size: 18px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
+  .cat-page-title { font-size: 17px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
   .cat-page-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+
+  .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 18px; }
   .cat-chip {
-    padding: 12px 10px;
+    padding: 12px 8px;
     border-radius: var(--radius-sm);
     border: 1.5px solid var(--border);
     background: var(--surface);
@@ -134,11 +169,16 @@
     transition: all 0.15s;
     line-height: 1.4;
   }
-  .cat-chip.selected { border-color: var(--green); color: var(--green); background: rgba(44,74,56,0.07); }
-  .add-cat-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  .cat-chip.selected {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
+
+  .add-cat-row { display: flex; gap: 9px; margin-bottom: 20px; }
   .add-cat-input {
     flex: 1;
-    padding: 11px 14px;
+    padding: 11px 13px;
     background: var(--surface);
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
@@ -148,11 +188,11 @@
     outline: none;
     transition: border-color 0.15s;
   }
-  .add-cat-input:focus { border-color: var(--green); }
+  .add-cat-input:focus { border-color: var(--accent); }
   .add-cat-input::placeholder { color: var(--text-dim); }
   .add-cat-btn {
-    padding: 11px 16px;
-    background: var(--green);
+    padding: 11px 14px;
+    background: var(--accent);
     color: #fff;
     border: none;
     border-radius: var(--radius-sm);
@@ -162,8 +202,17 @@
     cursor: pointer;
     white-space: nowrap;
   }
-  .form-section { margin-bottom: 18px; }
-  .form-label { display: block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+
+  .form-section { margin-bottom: 16px; }
+  .form-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--silver);
+    margin-bottom: 8px;
+  }
   .form-input {
     width: 100%;
     padding: 13px 14px;
@@ -176,9 +225,9 @@
     outline: none;
     transition: border-color 0.15s;
   }
-  .form-input:focus { border-color: var(--green); }
+  .form-input:focus { border-color: var(--accent); }
 
-  /* HISTORY */
+  /* ── HISTORY ── */
   .history-page { padding: 20px; padding-bottom: 80px; }
   .search-input {
     width: 100%;
@@ -193,8 +242,9 @@
     margin-bottom: 14px;
     transition: border-color 0.15s;
   }
-  .search-input:focus { border-color: var(--green); }
+  .search-input:focus { border-color: var(--accent); }
   .search-input::placeholder { color: var(--text-dim); }
+
   .cat-filter-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
   .cat-filter-btn {
     padding: 6px 12px;
@@ -208,34 +258,60 @@
     cursor: pointer;
     transition: all 0.15s;
   }
-  .cat-filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(192,57,43,0.06); }
-  .entry-list { display: flex; flex-direction: column; gap: 12px; }
-  .entry-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-  .entry-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .entry-date { font-size: 12px; color: var(--text-muted); font-weight: 700; }
-  .entry-mood { font-size: 12px; color: var(--yellow-text); background: var(--yellow-bg); padding: 3px 10px; border-radius: 99px; font-weight: 700; }
-  .entry-content { font-size: 14px; color: var(--text-body); line-height: 1.7; margin-bottom: 10px; }
-  .entry-cats { display: flex; gap: 6px; flex-wrap: wrap; }
-  .entry-cat { font-size: 11px; font-weight: 700; color: var(--green); background: rgba(44,74,56,0.07); border: 1px solid rgba(44,74,56,0.15); padding: 3px 10px; border-radius: 99px; }
+  .cat-filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+  }
 
-  /* STATS */
+  .entry-list { display: flex; flex-direction: column; gap: 12px; }
+  .entry-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+  }
+  .entry-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .entry-date { font-size: 12px; color: var(--silver); font-weight: 700; letter-spacing: 0.04em; }
+  .entry-mood {
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-light);
+    border: 1px solid rgba(45,122,80,0.2);
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 700;
+  }
+  .entry-content { font-size: 14px; color: var(--text-body); line-height: 1.75; margin-bottom: 10px; }
+  .entry-cats { display: flex; gap: 6px; flex-wrap: wrap; }
+  .entry-cat {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--silver);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+
+  /* ── STATS ── */
   .stats-page { padding: 20px; padding-bottom: 80px; }
-  .stats-title { font-size: 18px; font-weight: 900; color: var(--green); margin-bottom: 4px; }
-  .stats-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+  .stats-title { font-size: 18px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
+  .stats-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 22px; }
   .stat-item { margin-bottom: 18px; }
-  .stat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .stat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
   .stat-name { font-size: 14px; font-weight: 700; color: var(--text-body); }
   .stat-pct { font-size: 13px; font-weight: 900; color: var(--accent); }
   .stat-count { font-size: 11px; color: var(--text-dim); }
-  .stat-bar-bg { height: 8px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
-  .stat-bar-fill { height: 100%; background: var(--accent); border-radius: 99px; transition: width 0.8s ease; }
-  .stat-bar-fill.top { background: var(--green); }
+  .stat-bar-bg { height: 7px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; background: var(--silver-light); border-radius: 99px; transition: width 0.8s ease; }
+  .stat-bar-fill.top { background: var(--accent); }
 
-  /* CELEBRATION OVERLAY */
+  /* ── CELEBRATION ── */
   .celebrate-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(44,74,56,0.45);
+    background: rgba(26,46,36,0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -248,29 +324,29 @@
   .celebrate-box {
     background: var(--surface);
     border-radius: 24px;
-    padding: 36px 32px;
+    padding: 36px 28px 28px;
     text-align: center;
-    max-width: 300px;
+    max-width: 290px;
     width: 85%;
-    transform: scale(0.85);
-    transition: transform 0.3s;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    transform: scale(0.88);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.12);
   }
   .celebrate-overlay.show .celebrate-box { transform: scale(1); }
-  .celebrate-emoji { font-size: 48px; margin-bottom: 16px; }
-  .celebrate-msg { font-size: 20px; font-weight: 900; color: var(--green); line-height: 1.4; margin-bottom: 8px; }
+  .celebrate-emoji { font-size: 46px; margin-bottom: 14px; }
+  .celebrate-msg { font-size: 18px; font-weight: 900; color: var(--accent); line-height: 1.4; margin-bottom: 6px; }
   .celebrate-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
   .celebrate-progress { height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
-  .celebrate-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 100%; transition: width 2.5s linear; }
+  .celebrate-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 100%; transition: width 2.8s linear; }
 
   /* Toast */
   .toast {
     position: fixed;
     bottom: 90px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: var(--green);
+    transform: translateX(-50%) translateY(16px);
+    background: var(--text);
     color: #fff;
-    padding: 11px 20px;
+    padding: 10px 20px;
     border-radius: 99px;
     font-size: 13px;
     font-weight: 700;
@@ -283,7 +359,7 @@
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   .loading { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
-  .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
+  .spinner { width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
   .empty { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
 </style>
@@ -301,11 +377,13 @@
   <div class="tab" onclick="switchTab('stats')">📊 統計</div>
 </div>
 
-<!-- WRITE PAGE -->
+<!-- WRITE -->
 <div id="page-write" class="page active">
   <div class="write-page">
-    <div class="write-label">今天，我做到了⋯⋯</div>
-    <textarea class="write-textarea" id="writeContent" placeholder="寫下今天讓自己感到驕傲的事，不論大小都算⋯⋯" oninput="autoGrow(this); updateCount()"></textarea>
+    <div class="section-label">今天，我做到了⋯⋯</div>
+    <textarea class="write-textarea" id="writeContent"
+      placeholder="寫下今天讓自己感到驕傲的事，不論大小都算⋯⋯"
+      oninput="autoGrow(this); updateCount()"></textarea>
     <div class="char-count"><span id="charCount">0</span> 字</div>
   </div>
   <div class="sticky-bar">
@@ -313,11 +391,11 @@
   </div>
 </div>
 
-<!-- CATEGORY PAGE -->
+<!-- CATEGORY -->
 <div id="page-cat" class="page">
   <div class="cat-page">
     <div class="cat-page-title">這份成功屬於⋯⋯</div>
-    <div class="cat-page-sub">可以複選，選完填上日期和心情送出</div>
+    <div class="cat-page-sub">可複選，選完填日期與心情後送出</div>
     <div class="cat-grid" id="catGrid">
       <div class="loading"><div class="spinner"></div></div>
     </div>
@@ -335,11 +413,11 @@
     </div>
   </div>
   <div class="sticky-bar">
-    <button class="next-btn" onclick="submitEntry()">✓ 儲存這筆紀錄</button>
+    <button class="next-btn" id="submitBtn" onclick="submitEntry()">✓ 儲存這筆紀錄</button>
   </div>
 </div>
 
-<!-- HISTORY PAGE -->
+<!-- HISTORY -->
 <div id="page-history" class="page">
   <div class="history-page">
     <input class="search-input" id="searchInput" placeholder="搜尋紀錄內容⋯⋯" oninput="renderHistory()">
@@ -352,7 +430,7 @@
   </div>
 </div>
 
-<!-- STATS PAGE -->
+<!-- STATS -->
 <div id="page-stats" class="page">
   <div class="stats-page">
     <div class="stats-title">我的成長比重</div>
@@ -363,7 +441,7 @@
   </div>
 </div>
 
-<!-- CELEBRATION OVERLAY -->
+<!-- CELEBRATION -->
 <div class="celebrate-overlay" id="celebrateOverlay">
   <div class="celebrate-box">
     <div class="celebrate-emoji">🎉</div>
@@ -423,13 +501,11 @@ function autoGrow(el) {
   el.style.height = 'auto';
   el.style.height = el.scrollHeight + 'px';
 }
-
 function updateCount() {
   const val = document.getElementById("writeContent").value;
   document.getElementById("charCount").textContent = val.length;
   document.getElementById("nextBtn").disabled = val.trim().length === 0;
 }
-
 function goToCat() { switchTab('cat'); }
 
 // ── Categories ──
@@ -439,18 +515,16 @@ function renderCatGrid() {
     <button class="cat-chip ${selectedCats.has(cat)?'selected':''}" onclick="toggleCat(this)">${cat}</button>
   `).join("");
 }
-
 function toggleCat(btn) {
   const cat = btn.textContent;
   if (selectedCats.has(cat)) { selectedCats.delete(cat); btn.classList.remove("selected"); }
   else { selectedCats.add(cat); btn.classList.add("selected"); }
 }
-
 async function addNewCat() {
   const val = document.getElementById("newCatInput").value.trim();
   if (!val) return;
   try {
-    await fetch(API, { method: "POST", body: JSON.stringify({ action: "addCategory", category: val }) });
+    await fetch(API, { method:"POST", body: JSON.stringify({ action:"addCategory", category:val }) });
     categories.push(val);
     document.getElementById("newCatInput").value = "";
     renderCatGrid();
@@ -458,22 +532,26 @@ async function addNewCat() {
   } catch(e) { showToast("新增失敗"); }
 }
 
+// ── Submit ──
 async function submitEntry() {
   const content = document.getElementById("writeContent").value.trim();
-  const date = document.getElementById("entryDate").value;
+  const date = document.getElementById("entryDate").value; // "2026-06-16"
   const mood = document.getElementById("entryMood").value.trim();
   if (!content) { showToast("請先寫下今天的成功"); return; }
   if (selectedCats.size === 0) { showToast("請至少選一個分類"); return; }
   if (!date) { showToast("請選擇日期"); return; }
 
-  const btn = document.querySelector("#page-cat .next-btn");
+  // Count existing entries for today BEFORE submitting
+  const countBefore = countTodayEntries(date);
+
+  const btn = document.getElementById("submitBtn");
   btn.disabled = true;
   btn.textContent = "儲存中⋯";
 
   try {
     await fetch(API, {
       method: "POST",
-      body: JSON.stringify({ action: "add", content, date, mood, categories: [...selectedCats] })
+      body: JSON.stringify({ action:"add", content, date, mood, categories:[...selectedCats] })
     });
 
     // Reset form
@@ -485,17 +563,9 @@ async function submitEntry() {
     selectedCats.clear();
     renderCatGrid();
 
-    // Fetch updated entries then show celebration
+    // Show celebration with count = before + 1 (no date parsing needed)
+    const todayCount = countBefore + 1;
     await fetchEntries();
-
-    // Count today's entries
-    const todayStr = date;
-    const todayCount = entries.filter(e => {
-      const d = (e.date || "").toString();
-      const normalized = d.replace(/\//g, "-");
-      return normalized === todayStr || d === todayStr;
-    }).length;
-
     showCelebration(todayCount);
     switchTab('history');
 
@@ -507,30 +577,32 @@ async function submitEntry() {
   }
 }
 
+// Count entries matching a given date string (handles multiple formats)
+function countTodayEntries(dateStr) {
+  // dateStr is "2026-06-16"
+  const normalized = dateStr.replace(/-/g, '/'); // "2026/06/16"
+  return entries.filter(e => {
+    const d = (e.date || "").toString().trim();
+    return d === dateStr || d === normalized ||
+           d.replace(/-/g,'/') === normalized ||
+           d.replace(/\//g,'-') === dateStr;
+  }).length;
+}
+
 // ── Celebration ──
 function showCelebration(count) {
   const overlay = document.getElementById("celebrateOverlay");
   const msg = document.getElementById("celebrateMsg");
   const bar = document.getElementById("celebrateBar");
-
   msg.textContent = `你今天完成 ${count} 項紀錄，真棒！`;
-
-  // Reset bar
   bar.style.transition = "none";
   bar.style.width = "100%";
-
   overlay.classList.add("show");
-
-  // Start countdown bar
   setTimeout(() => {
     bar.style.transition = "width 2.8s linear";
     bar.style.width = "0%";
   }, 50);
-
-  // Auto dismiss after 3s
-  setTimeout(() => {
-    overlay.classList.remove("show");
-  }, 3000);
+  setTimeout(() => overlay.classList.remove("show"), 3100);
 }
 
 // ── History ──
@@ -546,23 +618,19 @@ function renderHistFilters() {
     row.appendChild(btn);
   });
 }
-
 function selectHistFilter(btn) {
   histFilter = btn.dataset.cat;
   document.querySelectorAll(".cat-filter-btn").forEach(b => b.classList.remove("active"));
   btn.classList.add("active");
   renderHistory();
 }
-
 function renderHistory() {
   const q = document.getElementById("searchInput").value.toLowerCase();
   let filtered = [...entries].reverse();
-  if (histFilter !== "全部") filtered = filtered.filter(e => e.categories.includes(histFilter));
+  if (histFilter !== "全部") filtered = filtered.filter(e => (e.categories||[]).includes(histFilter));
   if (q) filtered = filtered.filter(e => e.content.toLowerCase().includes(q) || (e.mood||"").toLowerCase().includes(q));
-
   const list = document.getElementById("entryList");
   if (!filtered.length) { list.innerHTML = `<div class="empty">還沒有符合的紀錄</div>`; return; }
-
   list.innerHTML = filtered.map(e => `
     <div class="entry-card">
       <div class="entry-meta">
@@ -570,14 +638,13 @@ function renderHistory() {
         ${e.mood ? `<div class="entry-mood">${e.mood}</div>` : ''}
       </div>
       <div class="entry-content">${e.content}</div>
-      <div class="entry-cats">${(e.categories||[]).map(c => `<span class="entry-cat">${c}</span>`).join("")}</div>
+      <div class="entry-cats">${(e.categories||[]).map(c=>`<span class="entry-cat">${c}</span>`).join("")}</div>
     </div>
   `).join("");
 }
-
 function formatDate(d) {
   if (!d) return "";
-  const s = d.toString();
+  const s = d.toString().trim();
   if (s.includes("/")) return s;
   if (s.includes("-")) { const [y,m,dd] = s.split("-"); return `${y}/${m}/${dd}`; }
   return s;
@@ -588,10 +655,10 @@ function renderStats() {
   const list = document.getElementById("statsList");
   if (!entries.length) { list.innerHTML = `<div class="empty">還沒有任何紀錄</div>`; return; }
   const counts = {};
-  entries.forEach(e => { (e.categories||[]).forEach(c => { counts[c] = (counts[c]||0)+1; }); });
+  entries.forEach(e => { (e.categories||[]).forEach(c => { counts[c]=(counts[c]||0)+1; }); });
   const total = Object.values(counts).reduce((a,b)=>a+b,0);
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  list.innerHTML = sorted.map(([cat, count], i) => {
+  list.innerHTML = sorted.map(([cat,count],i) => {
     const pct = Math.round(count/total*100);
     return `
       <div class="stat-item">
@@ -606,11 +673,11 @@ function renderStats() {
   }).join("");
 }
 
-// ── Tab Switch ──
+// ── Tab ──
 function switchTab(name) {
-  const visibleTabs = ['write','history','stats'];
-  document.querySelectorAll(".tab").forEach((t, i) => {
-    t.classList.toggle("active", visibleTabs[i] === name || (name==='cat' && visibleTabs[i]==='write'));
+  const visible = ['write','history','stats'];
+  document.querySelectorAll(".tab").forEach((t,i) => {
+    t.classList.toggle("active", visible[i]===name || (name==='cat' && visible[i]==='write'));
   });
   ['write','cat','history','stats'].forEach(t => {
     const p = document.getElementById(`page-${t}`);
