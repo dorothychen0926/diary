@@ -8,22 +8,24 @@
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap');
 
   :root {
-    --bg: #f2f4f3;
-    --surface: #ffffff;
-    --surface2: #e6eae8;
-    --border: #d8dedd;
-    --accent: #2d7a50;
-    --accent-dim: #1f5c3a;
-    --accent-light: rgba(45,122,80,0.08);
-    --silver: #8a9e96;
-    --silver-light: #b8c8c2;
-    --text: #1a2e24;
-    --text-body: #2e3e38;
-    --text-muted: #6a8278;
-    --text-dim: #a8bab4;
-    --danger: #b04040;
-    --radius: 14px;
-    --radius-sm: 9px;
+    --bg: #0d1520;
+    --surface: #131f2e;
+    --surface2: #101b28;
+    --border: #1e2d42;
+    --border2: #1a2535;
+    --accent: #ff8c3a;
+    --accent-dim: #e07020;
+    --accent-bg: rgba(255,140,58,0.10);
+    --teal: #4db8a0;
+    --teal-bg: rgba(77,184,160,0.08);
+    --teal-border: rgba(77,184,160,0.2);
+    --text: #ffffff;
+    --text-body: #c8d8e8;
+    --text-muted: #8aa8c0;
+    --text-dim: #3a5268;
+    --text-faint: #2e4a60;
+    --radius: 12px;
+    --radius-sm: 8px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,266 +37,122 @@
     min-height: 100vh;
   }
 
-  /* Header */
   .header {
     padding: 26px 20px 14px;
     text-align: center;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
+    border-bottom: 1px solid var(--border2);
+    background: var(--bg);
   }
-  .header-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--silver);
-    margin-bottom: 5px;
-    font-weight: 700;
-  }
-  .header h1 {
-    font-size: 22px;
-    font-weight: 900;
-    color: var(--accent);
-    letter-spacing: -0.02em;
-  }
+  .header-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--teal); margin-bottom: 5px; font-weight: 700; }
+  .header h1 { font-size: 22px; font-weight: 900; color: var(--text); letter-spacing: -0.02em; }
 
-  /* Tabs */
   .tabs {
     display: flex;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border2);
     position: sticky;
     top: 0;
     z-index: 10;
   }
-  .tab {
-    flex: 1;
-    padding: 13px 0;
-    text-align: center;
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-dim);
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    letter-spacing: 0.02em;
-  }
-  .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
+  .tab { flex: 1; padding: 13px 0; text-align: center; font-size: 12px; font-weight: 700; color: var(--text-dim); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* Pages */
   .page { display: none; }
   .page.active { display: flex; flex-direction: column; }
 
-  /* ── WRITE ── */
-  .write-page {
-    min-height: calc(100vh - 100px);
-    padding: 24px 20px 100px;
-  }
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--silver);
-    margin-bottom: 10px;
-  }
+  /* WRITE */
+  .write-page { min-height: calc(100vh - 100px); padding: 24px 20px 100px; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 10px; }
   .write-textarea {
-    width: 100%;
-    min-height: 190px;
-    padding: 16px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    font-size: 16px;
-    font-family: inherit;
-    color: var(--text-body);
-    resize: none;
-    overflow: hidden;
-    line-height: 1.75;
-    outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%; min-height: 190px; padding: 16px;
+    background: var(--surface); border: 1.5px solid var(--border);
+    border-radius: var(--radius); font-size: 16px; font-family: inherit;
+    color: var(--text-body); resize: none; overflow: hidden;
+    line-height: 1.75; outline: none; transition: border-color 0.15s;
   }
-  .write-textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(45,122,80,0.1);
-  }
-  .write-textarea::placeholder { color: var(--text-dim); }
-  .char-count { text-align: right; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+  .write-textarea:focus { border-color: var(--teal); }
+  .write-textarea::placeholder { color: var(--text-faint); }
+  .char-count { text-align: right; font-size: 11px; color: var(--text-faint); margin-top: 6px; }
 
-  /* Sticky bar */
   .sticky-bar {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    padding: 14px 20px;
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    z-index: 20;
+    position: fixed; bottom: 0; left: 0; right: 0;
+    padding: 14px 20px; background: var(--surface2);
+    border-top: 1px solid var(--border2); z-index: 20;
   }
   .next-btn {
-    width: 100%;
-    padding: 15px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius);
-    font-size: 15px;
-    font-weight: 900;
-    font-family: inherit;
-    cursor: pointer;
-    letter-spacing: 0.02em;
-    transition: all 0.15s;
+    width: 100%; padding: 15px; background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius); font-size: 15px;
+    font-weight: 900; font-family: inherit; cursor: pointer; transition: all 0.15s;
   }
   .next-btn:active { transform: scale(0.97); background: var(--accent-dim); }
-  .next-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .next-btn:disabled { opacity: 0.25; cursor: not-allowed; }
 
-  /* ── CATEGORY ── */
+  /* CATEGORY */
   .cat-page { padding: 20px; padding-bottom: 100px; }
   .cat-page-title { font-size: 17px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
   .cat-page-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-
   .cat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 18px; }
   .cat-chip {
-    padding: 12px 8px;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    font-size: 13px;
-    font-family: inherit;
-    font-weight: 700;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.15s;
-    line-height: 1.4;
+    padding: 12px 8px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border); background: var(--surface);
+    color: var(--text-dim); font-size: 13px; font-family: inherit;
+    font-weight: 700; cursor: pointer; text-align: center; transition: all 0.15s; line-height: 1.4;
   }
-  .cat-chip.selected {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-light);
-  }
+  .cat-chip.selected { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 
   .add-cat-row { display: flex; gap: 9px; margin-bottom: 20px; }
   .add-cat-input {
-    flex: 1;
-    padding: 11px 13px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--text-body);
-    outline: none;
-    transition: border-color 0.15s;
+    flex: 1; padding: 11px 13px; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit; color: var(--text-body); outline: none; transition: border-color 0.15s;
   }
-  .add-cat-input:focus { border-color: var(--accent); }
-  .add-cat-input::placeholder { color: var(--text-dim); }
+  .add-cat-input:focus { border-color: var(--teal); }
+  .add-cat-input::placeholder { color: var(--text-faint); }
   .add-cat-btn {
-    padding: 11px 14px;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 13px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    white-space: nowrap;
+    padding: 11px 14px; background: var(--teal); color: #0d1520;
+    border: none; border-radius: var(--radius-sm); font-size: 13px;
+    font-weight: 900; font-family: inherit; cursor: pointer; white-space: nowrap;
   }
 
   .form-section { margin-bottom: 16px; }
-  .form-label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--silver);
-    margin-bottom: 8px;
-  }
+  .form-label { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 8px; }
   .form-input {
-    width: 100%;
-    padding: 13px 14px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 15px;
-    font-family: inherit;
-    color: var(--text-body);
-    outline: none;
-    transition: border-color 0.15s;
+    width: 100%; padding: 13px 14px; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 15px; font-family: inherit; color: var(--text-body); outline: none; transition: border-color 0.15s;
   }
-  .form-input:focus { border-color: var(--accent); }
+  .form-input:focus { border-color: var(--teal); }
+  .form-input::-webkit-calendar-picker-indicator { filter: invert(0.5); }
 
-  /* ── HISTORY ── */
+  /* HISTORY */
   .history-page { padding: 20px; padding-bottom: 80px; }
   .search-input {
-    width: 100%;
-    padding: 11px 14px;
-    background: var(--surface);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    font-size: 14px;
-    font-family: inherit;
-    color: var(--text-body);
-    outline: none;
-    margin-bottom: 14px;
-    transition: border-color 0.15s;
+    width: 100%; padding: 11px 14px; background: var(--surface);
+    border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+    font-size: 14px; font-family: inherit; color: var(--text-body);
+    outline: none; margin-bottom: 14px; transition: border-color 0.15s;
   }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--text-dim); }
+  .search-input:focus { border-color: var(--teal); }
+  .search-input::placeholder { color: var(--text-faint); }
 
   .cat-filter-row { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 16px; }
   .cat-filter-btn {
-    padding: 6px 12px;
-    border-radius: 99px;
-    border: 1.5px solid var(--border);
-    background: var(--surface);
-    color: var(--text-muted);
-    font-size: 12px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    transition: all 0.15s;
+    padding: 6px 12px; border-radius: 99px; border: 1.5px solid var(--border);
+    background: var(--surface); color: var(--text-dim); font-size: 12px;
+    font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.15s;
   }
-  .cat-filter-btn.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--accent-light);
-  }
+  .cat-filter-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
 
   .entry-list { display: flex; flex-direction: column; gap: 12px; }
-  .entry-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-  }
+  .entry-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
   .entry-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .entry-date { font-size: 12px; color: var(--silver); font-weight: 700; letter-spacing: 0.04em; }
-  .entry-mood {
-    font-size: 12px;
-    color: var(--accent);
-    background: var(--accent-light);
-    border: 1px solid rgba(45,122,80,0.2);
-    padding: 3px 10px;
-    border-radius: 99px;
-    font-weight: 700;
-  }
+  .entry-date { font-size: 12px; color: var(--text-dim); font-weight: 700; letter-spacing: 0.04em; }
+  .entry-mood { font-size: 12px; color: var(--accent); background: var(--accent-bg); border: 1px solid rgba(255,140,58,0.25); padding: 3px 10px; border-radius: 99px; font-weight: 700; }
   .entry-content { font-size: 14px; color: var(--text-body); line-height: 1.75; margin-bottom: 10px; }
   .entry-cats { display: flex; gap: 6px; flex-wrap: wrap; }
-  .entry-cat {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--silver);
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    padding: 3px 10px;
-    border-radius: 99px;
-  }
+  .entry-cat { font-size: 11px; font-weight: 700; color: var(--teal); background: var(--teal-bg); border: 1px solid var(--teal-border); padding: 3px 10px; border-radius: 99px; }
 
-  /* ── STATS ── */
+  /* STATS */
   .stats-page { padding: 20px; padding-bottom: 80px; }
   .stats-title { font-size: 18px; font-weight: 900; color: var(--text); margin-bottom: 3px; }
   .stats-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 22px; }
@@ -302,66 +160,45 @@
   .stat-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 7px; }
   .stat-name { font-size: 14px; font-weight: 700; color: var(--text-body); }
   .stat-pct { font-size: 13px; font-weight: 900; color: var(--accent); }
-  .stat-count { font-size: 11px; color: var(--text-dim); }
-  .stat-bar-bg { height: 7px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
-  .stat-bar-fill { height: 100%; background: var(--silver-light); border-radius: 99px; transition: width 0.8s ease; }
+  .stat-count { font-size: 11px; color: var(--text-faint); }
+  .stat-bar-bg { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+  .stat-bar-fill { height: 100%; background: var(--teal); border-radius: 99px; transition: width 0.8s ease; }
   .stat-bar-fill.top { background: var(--accent); }
 
-  /* ── CELEBRATION ── */
+  /* CELEBRATION */
   .celebrate-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(26,46,36,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s;
   }
   .celebrate-overlay.show { opacity: 1; pointer-events: auto; }
   .celebrate-box {
-    background: var(--surface);
-    border-radius: 24px;
-    padding: 36px 28px 28px;
-    text-align: center;
-    max-width: 290px;
-    width: 85%;
-    transform: scale(0.88);
-    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 24px 64px rgba(0,0,0,0.12);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 24px; padding: 36px 28px 28px; text-align: center;
+    max-width: 290px; width: 85%;
+    transform: scale(0.88); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
   }
   .celebrate-overlay.show .celebrate-box { transform: scale(1); }
   .celebrate-emoji { font-size: 46px; margin-bottom: 14px; }
   .celebrate-msg { font-size: 18px; font-weight: 900; color: var(--accent); line-height: 1.4; margin-bottom: 6px; }
   .celebrate-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
-  .celebrate-progress { height: 4px; background: var(--surface2); border-radius: 99px; overflow: hidden; }
+  .celebrate-progress { height: 3px; background: var(--border); border-radius: 99px; overflow: hidden; }
   .celebrate-progress-fill { height: 100%; background: var(--accent); border-radius: 99px; width: 100%; transition: width 2.8s linear; }
 
-  /* Toast */
   .toast {
-    position: fixed;
-    bottom: 90px; left: 50%;
+    position: fixed; bottom: 90px; left: 50%;
     transform: translateX(-50%) translateY(16px);
-    background: var(--text);
-    color: #fff;
-    padding: 10px 20px;
-    border-radius: 99px;
-    font-size: 13px;
-    font-weight: 700;
-    opacity: 0;
-    transition: all 0.25s;
-    pointer-events: none;
-    white-space: nowrap;
-    z-index: 100;
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-body); padding: 10px 20px; border-radius: 99px;
+    font-size: 13px; font-weight: 700; opacity: 0; transition: all 0.25s;
+    pointer-events: none; white-space: nowrap; z-index: 100;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-  .loading { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
+  .loading { text-align: center; padding: 40px 0; color: var(--text-faint); font-size: 14px; }
   .spinner { width: 22px; height: 22px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto 12px; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .empty { text-align: center; padding: 40px 0; color: var(--text-dim); font-size: 14px; }
+  .empty { text-align: center; padding: 40px 0; color: var(--text-faint); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -377,7 +214,6 @@
   <div class="tab" onclick="switchTab('stats')">📊 統計</div>
 </div>
 
-<!-- WRITE -->
 <div id="page-write" class="page active">
   <div class="write-page">
     <div class="section-label">今天，我做到了⋯⋯</div>
@@ -391,7 +227,6 @@
   </div>
 </div>
 
-<!-- CATEGORY -->
 <div id="page-cat" class="page">
   <div class="cat-page">
     <div class="cat-page-title">這份成功屬於⋯⋯</div>
@@ -417,7 +252,6 @@
   </div>
 </div>
 
-<!-- HISTORY -->
 <div id="page-history" class="page">
   <div class="history-page">
     <input class="search-input" id="searchInput" placeholder="搜尋紀錄內容⋯⋯" oninput="renderHistory()">
@@ -430,7 +264,6 @@
   </div>
 </div>
 
-<!-- STATS -->
 <div id="page-stats" class="page">
   <div class="stats-page">
     <div class="stats-title">我的成長比重</div>
@@ -441,7 +274,6 @@
   </div>
 </div>
 
-<!-- CELEBRATION -->
 <div class="celebrate-overlay" id="celebrateOverlay">
   <div class="celebrate-box">
     <div class="celebrate-emoji">🎉</div>
@@ -457,33 +289,22 @@
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbwJ1oBfLXcH3kS9UCsMXkgRbC1hw6Lk-XzIRbonzTwKHe6AEeV8_f0MVKBVA83NtmCh8A/exec";
-
-let entries = [];
-let categories = [];
-let selectedCats = new Set();
-let histFilter = "全部";
+let entries = [], categories = [], selectedCats = new Set(), histFilter = "全部";
 
 window.onload = () => {
   const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth()+1).padStart(2,'0');
-  const dd = String(today.getDate()).padStart(2,'0');
-  document.getElementById("entryDate").value = `${yyyy}-${mm}-${dd}`;
+  document.getElementById("entryDate").value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
   fetchAll();
 };
 
-async function fetchAll() {
-  await Promise.all([fetchEntries(), fetchCategories()]);
-}
+async function fetchAll() { await Promise.all([fetchEntries(), fetchCategories()]); }
 
 async function fetchEntries() {
   try {
     const res = await fetch(`${API}?action=getAll`);
     const data = await res.json();
     entries = data.rows || [];
-    renderHistory();
-    renderStats();
-    renderHistFilters();
+    renderHistory(); renderStats(); renderHistFilters();
   } catch(e) { showToast("載入失敗，請重試"); }
 }
 
@@ -496,11 +317,7 @@ async function fetchCategories() {
   } catch(e) { showToast("分類載入失敗"); }
 }
 
-// ── Write ──
-function autoGrow(el) {
-  el.style.height = 'auto';
-  el.style.height = el.scrollHeight + 'px';
-}
+function autoGrow(el) { el.style.height = 'auto'; el.style.height = el.scrollHeight + 'px'; }
 function updateCount() {
   const val = document.getElementById("writeContent").value;
   document.getElementById("charCount").textContent = val.length;
@@ -508,12 +325,10 @@ function updateCount() {
 }
 function goToCat() { switchTab('cat'); }
 
-// ── Categories ──
 function renderCatGrid() {
-  const grid = document.getElementById("catGrid");
-  grid.innerHTML = categories.map(cat => `
-    <button class="cat-chip ${selectedCats.has(cat)?'selected':''}" onclick="toggleCat(this)">${cat}</button>
-  `).join("");
+  document.getElementById("catGrid").innerHTML = categories.map(cat =>
+    `<button class="cat-chip ${selectedCats.has(cat)?'selected':''}" onclick="toggleCat(this)">${cat}</button>`
+  ).join("");
 }
 function toggleCat(btn) {
   const cat = btn.textContent;
@@ -532,88 +347,59 @@ async function addNewCat() {
   } catch(e) { showToast("新增失敗"); }
 }
 
-// ── Submit ──
 async function submitEntry() {
   const content = document.getElementById("writeContent").value.trim();
-  const date = document.getElementById("entryDate").value; // "2026-06-16"
+  const date = document.getElementById("entryDate").value;
   const mood = document.getElementById("entryMood").value.trim();
   if (!content) { showToast("請先寫下今天的成功"); return; }
   if (selectedCats.size === 0) { showToast("請至少選一個分類"); return; }
   if (!date) { showToast("請選擇日期"); return; }
 
-  // Count existing entries for today BEFORE submitting
   const countBefore = countTodayEntries(date);
-
   const btn = document.getElementById("submitBtn");
-  btn.disabled = true;
-  btn.textContent = "儲存中⋯";
+  btn.disabled = true; btn.textContent = "儲存中⋯";
 
   try {
-    await fetch(API, {
-      method: "POST",
-      body: JSON.stringify({ action:"add", content, date, mood, categories:[...selectedCats] })
-    });
-
-    // Reset form
+    await fetch(API, { method:"POST", body: JSON.stringify({ action:"add", content, date, mood, categories:[...selectedCats] }) });
     document.getElementById("writeContent").value = "";
     document.getElementById("writeContent").style.height = "auto";
     document.getElementById("charCount").textContent = "0";
     document.getElementById("nextBtn").disabled = true;
     document.getElementById("entryMood").value = "";
-    selectedCats.clear();
-    renderCatGrid();
-
-    // Show celebration with count = before + 1 (no date parsing needed)
+    selectedCats.clear(); renderCatGrid();
     const todayCount = countBefore + 1;
     await fetchEntries();
     showCelebration(todayCount);
     switchTab('history');
-
-  } catch(e) {
-    showToast("儲存失敗，請重試");
-  } finally {
-    btn.disabled = false;
-    btn.textContent = "✓ 儲存這筆紀錄";
-  }
+  } catch(e) { showToast("儲存失敗，請重試"); }
+  finally { btn.disabled = false; btn.textContent = "✓ 儲存這筆紀錄"; }
 }
 
-// Count entries matching a given date string (handles multiple formats)
 function countTodayEntries(dateStr) {
-  // dateStr is "2026-06-16"
-  const normalized = dateStr.replace(/-/g, '/'); // "2026/06/16"
+  const norm = dateStr.replace(/-/g, '/');
   return entries.filter(e => {
-    const d = (e.date || "").toString().trim();
-    return d === dateStr || d === normalized ||
-           d.replace(/-/g,'/') === normalized ||
-           d.replace(/\//g,'-') === dateStr;
+    const d = (e.date||"").toString().trim();
+    return d === dateStr || d === norm || d.replace(/-/g,'/') === norm || d.replace(/\//g,'-') === dateStr;
   }).length;
 }
 
-// ── Celebration ──
 function showCelebration(count) {
   const overlay = document.getElementById("celebrateOverlay");
-  const msg = document.getElementById("celebrateMsg");
   const bar = document.getElementById("celebrateBar");
-  msg.textContent = `你今天完成 ${count} 項紀錄，真棒！`;
-  bar.style.transition = "none";
-  bar.style.width = "100%";
+  document.getElementById("celebrateMsg").textContent = `你今天完成 ${count} 項紀錄，真棒！`;
+  bar.style.transition = "none"; bar.style.width = "100%";
   overlay.classList.add("show");
-  setTimeout(() => {
-    bar.style.transition = "width 2.8s linear";
-    bar.style.width = "0%";
-  }, 50);
+  setTimeout(() => { bar.style.transition = "width 2.8s linear"; bar.style.width = "0%"; }, 50);
   setTimeout(() => overlay.classList.remove("show"), 3100);
 }
 
-// ── History ──
 function renderHistFilters() {
   const row = document.getElementById("histFilterRow");
   row.innerHTML = `<button class="cat-filter-btn ${histFilter==='全部'?'active':''}" data-cat="全部" onclick="selectHistFilter(this)">全部</button>`;
   categories.forEach(cat => {
     const btn = document.createElement("button");
     btn.className = `cat-filter-btn ${histFilter===cat?'active':''}`;
-    btn.dataset.cat = cat;
-    btn.textContent = cat;
+    btn.dataset.cat = cat; btn.textContent = cat;
     btn.onclick = () => selectHistFilter(btn);
     row.appendChild(btn);
   });
@@ -621,8 +407,7 @@ function renderHistFilters() {
 function selectHistFilter(btn) {
   histFilter = btn.dataset.cat;
   document.querySelectorAll(".cat-filter-btn").forEach(b => b.classList.remove("active"));
-  btn.classList.add("active");
-  renderHistory();
+  btn.classList.add("active"); renderHistory();
 }
 function renderHistory() {
   const q = document.getElementById("searchInput").value.toLowerCase();
@@ -639,8 +424,7 @@ function renderHistory() {
       </div>
       <div class="entry-content">${e.content}</div>
       <div class="entry-cats">${(e.categories||[]).map(c=>`<span class="entry-cat">${c}</span>`).join("")}</div>
-    </div>
-  `).join("");
+    </div>`).join("");
 }
 function formatDate(d) {
   if (!d) return "";
@@ -649,8 +433,6 @@ function formatDate(d) {
   if (s.includes("-")) { const [y,m,dd] = s.split("-"); return `${y}/${m}/${dd}`; }
   return s;
 }
-
-// ── Stats ──
 function renderStats() {
   const list = document.getElementById("statsList");
   if (!entries.length) { list.innerHTML = `<div class="empty">還沒有任何紀錄</div>`; return; }
@@ -660,20 +442,15 @@ function renderStats() {
   const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
   list.innerHTML = sorted.map(([cat,count],i) => {
     const pct = Math.round(count/total*100);
-    return `
-      <div class="stat-item">
-        <div class="stat-header">
-          <span class="stat-name">${cat}</span>
-          <span><span class="stat-pct">${pct}%</span><span class="stat-count"> · ${count} 筆</span></span>
-        </div>
-        <div class="stat-bar-bg">
-          <div class="stat-bar-fill ${i===0?'top':''}" style="width:${pct}%"></div>
-        </div>
-      </div>`;
+    return `<div class="stat-item">
+      <div class="stat-header">
+        <span class="stat-name">${cat}</span>
+        <span><span class="stat-pct">${pct}%</span><span class="stat-count"> · ${count} 筆</span></span>
+      </div>
+      <div class="stat-bar-bg"><div class="stat-bar-fill ${i===0?'top':''}" style="width:${pct}%"></div></div>
+    </div>`;
   }).join("");
 }
-
-// ── Tab ──
 function switchTab(name) {
   const visible = ['write','history','stats'];
   document.querySelectorAll(".tab").forEach((t,i) => {
@@ -686,12 +463,9 @@ function switchTab(name) {
   if (name==='history') renderHistory();
   if (name==='stats') renderStats();
 }
-
-// ── Toast ──
 function showToast(msg) {
   const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
+  t.textContent = msg; t.classList.add("show");
   setTimeout(() => t.classList.remove("show"), 2500);
 }
 </script>
